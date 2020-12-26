@@ -82,7 +82,17 @@
           <ul class="dropdown-menu settings-menu dropdown-menu-right">
             <li><a class="dropdown-item" href="page-user.html"><i class="fa fa-cog fa-lg"></i> Settings</a></li>
             <li><a class="dropdown-item" href="page-user.html"><i class="fa fa-user fa-lg"></i> Profile</a></li>
-            <li><a class="dropdown-item" href="page-login.html"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
+            <li>
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">
+                    <i class="fa fa-sign-out fa-lg"></i> Logout</a>
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </li>
           </ul>
         </li>
       </ul>
@@ -97,8 +107,8 @@
         </div>
       </div>
       <ul class="app-menu">
-        <li><a class="app-menu__item active" href="dashboard.html"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">UI Elements</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+        <li><a class="app-menu__item {{Request::is('dashboard')? 'active':''}}" href="{{route('dashboard')}}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
+        {{-- <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">UI Elements</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="bootstrap-components.html"><i class="icon fa fa-circle-o"></i> Bootstrap Elements</a></li>
             <li><a class="treeview-item" href="https://fontawesome.com/v4.7.0/icons/" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> Font Icons</a></li>
@@ -132,12 +142,13 @@
             <li><a class="treeview-item" href="page-mailbox.html"><i class="icon fa fa-circle-o"></i> Mailbox</a></li>
             <li><a class="treeview-item" href="page-error.html"><i class="icon fa fa-circle-o"></i> Error Page</a></li>
           </ul>
-        </li>
-        <li><a class="app-menu__item" href="docs.html"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Docs</span></a></li>
-        <li><a class="app-menu__item" href="{{route('categories.index')}}"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Category</span></a></li>
-        <li><a class="app-menu__item" href="{{route('subcategories.index')}}"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Subcategory</span></a></li>
-        <li><a class="app-menu__item" href="{{route('brands.index')}}"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Brands</span></a></li>
-        <li><a class="app-menu__item" href="{{route('items.index')}}"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Items</span></a></li>
+        </li> --}}
+        {{-- <li><a class="app-menu__item" href="docs.html"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Docs</span></a></li> --}}
+        <li><a class="app-menu__item {{Request::is('categories*')? 'active':''}}" href="{{route('categories.index')}}"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Category</span></a></li>
+        <li><a class="app-menu__item {{Request::is('subcategories*')? 'active':''}}" href="{{route('subcategories.index')}}"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Subcategory</span></a></li>
+        <li><a class="app-menu__item {{Request::is('brands*')? 'active':''}}" href="{{route('brands.index')}}"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Brands</span></a></li>
+        <li><a class="app-menu__item {{Request::is('items*')? 'active':''}}" href="{{route('items.index')}}"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Items</span></a></li>
+        <li><a class="app-menu__item {{Request::is('orders*')? 'active':''}}" href="{{route('orders.index')}}"><i class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">Orders</span></a></li>
       </ul>
     </aside>
     @yield('content')

@@ -26,7 +26,7 @@
                     <th scope="col">Codeno</th> 
                     <th scope="col">Price</th>
                     <th scope="col">Brand</th>
-                    <th scope="col">Description</th>
+                    {{-- <th scope="col">Description</th> --}}
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -49,16 +49,16 @@
                     <td>{{$row->codeno}}</td>
                     <td>
                       @if($row->discount>0)
-                          <span class="text-danger"><s>{{$row->price}}</s></span>
-                          <span>{{$row->discount}}</span>
+                          <span class="text-danger"><s>{{ number_format($row->price, 2) }}MMK</s></span>
+                          <span>{{ number_format($row->discount) }}MMK</span>
                       @else
-                          <span>{{$row->price}}</span>
+                          <span>{{ number_format($row->price, 2) }}MMK</span>
                       @endif
                     </td>
                     <td>
                       {{$row->brand->name}}
                     </td>
-                    <td>{!!$row->description!!}</td>
+                    {{-- <td>{!!$row->description!!}</td> --}}
                     <td>
                       <a href="{{route('items.edit',$row->id)}}" class="btn btn-warning text-light">Edit</a>
                         <a href="{{route('items.show',$row->id)}}" class="btn btn-info">Detail</a>

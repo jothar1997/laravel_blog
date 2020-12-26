@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Auth;
 class LoginController extends Controller
 {
     /*
@@ -36,5 +36,19 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    public function redirectTo(){
+        $roles = auth()->user()->getRoleNames();
+
+        switch ($roles[0]) {
+            case 'admin':
+                return route('dashboard');
+                break;
+            
+            default:
+                return route('homepage');
+                break;
+        }
+
     }
 }
